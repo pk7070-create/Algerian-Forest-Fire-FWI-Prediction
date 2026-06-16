@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Forest Fire Prediction</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(
+        -45deg,
+        #ff512f,
+        #dd2476,
+        #1e3c72,
+        #2a5298
+    );
+    background-size:400% 400%;
+    animation:gradientBG 12s ease infinite;
+    padding:20px;
+}
+
+@keyframes gradientBG{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.container{
+    width:100%;
+    max-width:700px;
+    background:rgba(255,255,255,0.12);
+    backdrop-filter:blur(15px);
+    border-radius:25px;
+    padding:35px;
+    box-shadow:0 8px 32px rgba(0,0,0,0.25);
+    border:1px solid rgba(255,255,255,0.18);
+}
+
+h1{
+    text-align:center;
+    color:white;
+    font-size:34px;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#f5f5f5;
+    margin-bottom:30px;
+    font-size:15px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.input-group{
+    display:flex;
+    flex-direction:column;
+}
+
+label{
+    color:white;
+    margin-bottom:5px;
+    font-size:14px;
+}
+
+input{
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    font-size:15px;
+    background:rgba(255,255,255,0.9);
+    transition:0.3s;
+}
+
+input:focus{
+    outline:none;
+    transform:scale(1.02);
+    box-shadow:0 0 15px rgba(255,255,255,0.6);
+}
+
+.btn{
+    width:100%;
+    padding:14px;
+    margin-top:25px;
+    border:none;
+    border-radius:12px;
+    font-size:17px;
+    font-weight:bold;
+    color:white;
+    cursor:pointer;
+    background:linear-gradient(
+        45deg,
+        #ff6a00,
+        #ee0979
+    );
+    transition:0.3s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+.result{
+    margin-top:25px;
+    padding:18px;
+    border-radius:12px;
+    text-align:center;
+    background:rgba(255,255,255,0.15);
+    color:white;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.footer{
+    margin-top:20px;
+    text-align:center;
+    color:#f1f1f1;
+    font-size:13px;
+}
+
+@media(max-width:700px){
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    h1{
+        font-size:28px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🔥 Forest Fire Prediction</h1>
+
+    <p class="subtitle">
+        Predict Forest Fire Weather Index using Machine Learning
+    </p>
+
+    <form action="{{ url_for('predict_datapoint') }}" method="post">
+
+        <div class="form-grid">
+
+            <div class="input-group">
+                <label>🌡 Temperature</label>
+                <input type="text" name="Temperature" placeholder="Enter Temperature" required>
+            </div>
+
+            <div class="input-group">
+                <label>💧 RH</label>
+                <input type="text" name="RH" placeholder="Enter RH" required>
+            </div>
+
+            <div class="input-group">
+                <label>🌬 Wind Speed</label>
+                <input type="text" name="Ws" placeholder="Enter Wind Speed" required>
+            </div>
+
+            <div class="input-group">
+                <label>🌧 Rain</label>
+                <input type="text" name="Rain" placeholder="Enter Rain" required>
+            </div>
+
+            <div class="input-group">
+                <label>🔥 FFMC</label>
+                <input type="text" name="FFMC" placeholder="Enter FFMC" required>
+            </div>
+
+            <div class="input-group">
+                <label>📊 DMC</label>
+                <input type="text" name="DMC" placeholder="Enter DMC" required>
+            </div>
+
+            <div class="input-group">
+                <label>📈 ISI</label>
+                <input type="text" name="ISI" placeholder="Enter ISI" required>
+            </div>
+
+            <div class="input-group">
+                <label>🏷 Classes</label>
+                <input type="text" name="Classes" placeholder="Enter Classes" required>
+            </div>
+
+            <div class="input-group">
+                <label>📍 Region</label>
+                <input type="text" name="Region" placeholder="Enter Region" required>
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn">
+            🚀 Predict Fire Risk
+        </button>
+
+    </form>
+
+    {% if result %}
+    <div class="result">
+        🔥 Predicted FWI : {{ result }}
+    </div>
+    {% endif %}
+
+    <div class="footer">
+        Built with ❤️ using Flask & Machine Learning
+    </div>
+
+</div>
+
+</body>
+</html>
